@@ -6,6 +6,4 @@ Route::get('/', function(){
 
 })->name('dashboard');
 
-
-
 ?>
