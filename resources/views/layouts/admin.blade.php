@@ -1,3 +1,9 @@
+@props(
+  [
+    'title' => config('app.name','Laravel'),//Titulo por defecto
+    'breadcrumbs'=>[] //arreglo vacionpor defecto
+  ]
+)
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -7,7 +13,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{$title }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -23,18 +29,18 @@
     @livewireStyles
 </head>
 
-<body class="font-sans antialiased bg-gray-100">
+<body class="font-sans antialiased bg-gray-50">
 
     @include('layouts.includes.admin.navigation')
     @include('layouts.includes.admin.sidebar')
 
-
     <div class="p-4 sm:ml-64 mt-14">
       <div class="mt-14">
-        {{$slot}}
-        
-      </div>
+
+           @include('layouts.includes.admin.breadcrumb')
        
+      </div>
+       {{$slot}}
     </div>
 
     @stack('modals')
