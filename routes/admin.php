@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
@@ -6,4 +8,6 @@ Route::get('/', function(){
 
 })->name('dashboard');
 
+//gestion de roles
+Route::resource('roles', RoleController::class);
 ?>
