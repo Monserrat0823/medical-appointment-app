@@ -3,10 +3,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Laravel\Jetstream\Role;
+use Laravel\Jetstream\Role; 
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,6 +18,7 @@ class DatabaseSeeder extends Seeder
     {
         //llamar a los seeders creados
         $this -> call(RoleSeeder::class);
+        $this -> call(UserSeeder::class);
 
 
         // User::factory(10)->create();
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@test.com',
-            'password' => bcrypt('12345678')
+            'password' => bcrypt('12345678') 
         ]);
     }
 }

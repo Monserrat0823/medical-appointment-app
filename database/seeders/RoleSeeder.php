@@ -18,7 +18,7 @@ class RoleSeeder extends Seeder
             'Paciente',
             'Doctor',
             'Recepcionista',
-            'Admnistrador',
+            'Administrador',
             'Super administrador'
         ];
         //Crear roles

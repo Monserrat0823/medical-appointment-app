@@ -11,8 +11,15 @@
                 'icon' => 'fa-solid fa-shield-halved',
                 'href' => route('admin.roles.index'),
                 'active' => request()->routeIs('admin.roles.*'),
-        
             ],
+
+            [
+                'name'=> 'Usuarios',
+                'icon' => 'fa-solid fa-users',
+                'href'=> route('admin.users.index'), 
+                'active'=> request()->routeIs('admin.users.*'),
+            ],
+
         ];
         
         ?>
@@ -52,17 +59,14 @@
                                     </button>
 
                                     <ul id="dropdown-example" class="hidden py-2 space-y-2">
-                                       @foreach ($link['submenu'] as $item)
-                                           
-                                       
-                                        <li>
-                                            <a href="{{$item['href']}}"
-                                                class="pl-10 flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group">{{$item['name']}}</a>
-                                        </li>
+                                        @foreach ($link['submenu'] as $item)
+                                            <li>
+                                                <a href="{{ $item['href'] }}"
+                                                    class="pl-10 flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group">{{ $item['name'] }}</a>
+                                            </li>
                                         @endforeach
                                     </ul>
-                                    @else
-
+                                @else
                                     <a href="{{ $link['href'] }}"
                                         class="flex items-center px-2 py-1.5 text-body rounded-base hover:bg-neutral-tertiary hover:text-fg-brand group {{ $link['active'] ? 'bg-gray-100' : '' }}">
                                         <span class="w-6 h-6 inline-flex items-center justify-center text-gray-500">
