@@ -27,8 +27,8 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+'name' => $this->faker->name(),
+'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'two_factor_secret' => null,
@@ -36,6 +36,11 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'profile_photo_path' => null,
             'current_team_id' => null,
+
+            //Nuevos campos
+            'id_number' => strtoupper($this->faker->bothify('ID-#####')),
+            'phone' => $this->faker->numerify('##########'),
+            'address'=> $this->faker->streetAddress(),
         ];
     }
 

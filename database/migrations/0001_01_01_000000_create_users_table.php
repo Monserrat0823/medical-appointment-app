@@ -23,8 +23,6 @@ return new class extends Migration
              $table->string('phone');
              $table->string('address');
 
-
-
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
