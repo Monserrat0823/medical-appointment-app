@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Tests\TestCase; 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -52,6 +53,16 @@ class UserController extends Controller
             'title'=> 'Usuario creado correctamente',
             'text'=> 'El usuario ha sido creado correctamente'
         ]);
+
+        //Si el usuario creado es un paciente , encia al modulo
+        if($user::role('Paciente')){
+            //creamos el registro para el paciente
+            $patient=$user->patient()->create([]);
+            return redirect()->route('admin.patients.edit',$patient);
+
+
+        }
+
         return redirect(route('admin.users.index'))->with('sucess','User created successfully.');
     }
 

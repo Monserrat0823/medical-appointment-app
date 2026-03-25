@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\PatientController;
+use App\Models\Patient;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
@@ -14,6 +16,9 @@ Route::resource('roles', RoleController::class);
 
 //gestion de usuaarios
 Route::resource('users', UserController::class);
+
+//gestion de pacientes
+Route::resource('patients', PatientController::class);
 
 
 ?>
