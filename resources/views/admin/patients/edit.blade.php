@@ -18,7 +18,7 @@
 
         {{-- encabezado con foto y acciones --}}
 
-        <x-wire-card>
+        <x-wire-card class="mb-8">
 
             <div class="lg:flex lg:justify-between lg:items-center">
                 <div class="flex items-center">
@@ -42,7 +42,7 @@
 
         <x-wire-card>
 
-            <div x-data="{ tab: 'datos-personales' }">
+            <div x-data="{ tab: 'contacto-emergencia' }">
 
                 {{-- Menu de pestanas --}}
 
@@ -106,46 +106,125 @@
                         </li>
                     </ul>
                 </div>
+                
                 {{-- contenido con los tabs --}}
                 <div class="px-4 mt-4">
                     {{-- Contenio de tab1:datos personales --}}
 
                     <div x-show="tab === 'datos-personales'">
                         <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded-r-lg shadow-sm">
-                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
                                 {{-- Lado izquierdo: informacion --}}
                                 <div class="flex items-start">
                                     <div class="flex-shrink-0">
-                                        <i class="fa-solid fa-user-gear text-blue-500 text-xl me-2 mt-1" ></i>
-                                        <div class="ml-3 ">
-                                          <h3 class="text-sm font-bold text-blue-800">Edicion de cuenta de usuario</h3>
-                                          <div class="mt-1 text-sm text-blue-600">
-                                            <p>La <strong>información de acceso</strong>(nombre, Email y contraseña) debe
-                                        gestionarse desde la cuenta de usuario asociado:</p>
-                                      
-                                          </div>
+                                        <i class="fa-solid fa-user-gear text-blue-500 text-xl mt-1"></i>
+
+                                    </div>
+                                    <div class="ml-3 ">
+                                        <h3 class="text-sm font-bold text-blue-800">Edicion de cuenta de usuario</h3>
+                                        <div class="mt-1 text-sm text-blue-600">
+                                            <p>La <strong>información de acceso</strong>(nombre, Email y contraseña)
+                                                debe
+                                                gestionarse desde la cuenta de usuario asociado:</p>
+
                                         </div>
                                     </div>
+                                </div>
 
-                                    {{-- Lado derecho: boton de accion --}}
-                                    <div class="flex-shrink-0">
-                                      <x-wire-button primary sm href="{{ route('admin.users.edit', $patient->user) }}" target="_blank"> Editar usuario
+                                {{-- Lado derecho: boton de accion --}}
+                                <div class="flex-shrink-0">
+                                    <x-wire-button primary sm href="{{ route('admin.users.edit', $patient->user) }}"
+                                        target="_blank"> Editar usuario
                                         <i class="fa-solid fa-arrow-up-right-from-square ms-2"></i>
-                                      </x-wire-button>
+                                    </x-wire-button>
 
-                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="grid lg:grid-cols-2 gap-4">
+                            <div>
+                                <span class="text-gray-500 font-semibold">Telefono: </span>
+                                <span class="text-gray-900">{{ $patient->user->phone }}</span>
+                            </div>
+
+                            <div>
+                                <span class="text-gray-500 font-semibold">Email: </span>
+                                <span class="text-gray-900">{{ $patient->user->email }}</span>
+                            </div>
+
+                            <div>
+                                <span class="text-gray-500 font-semibold">Dirección: </span>
+                                <span class="text-gray-900">{{ $patient->user->address }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {{-- CONTENIDO DE  TAB2 :antecedentes - --}}
+                    <div x-show="tab === 'antecedentes'" style="display:none;">
+                        <div class="grid lg:grid-cols-2 gap-4">
+    <div>
+        <x-wire-textarea label="Alergias Conocidas"
+            name="allergies">{{ old('allergies', $patient->allergies) }}</x-wire-textarea>
+    </div>
+
+    <div>
+        <x-wire-textarea label="Enfermedades Crónicas"
+            name="chronic_conditions">{{ old('chronic_conditions', $patient->chronic_conditions) }}</x-wire-textarea>
+    </div>
+
+    <div>
+        <x-wire-textarea label="Antecedentes quirúrgicos"
+            name="surgical_history">{{ old('surgical_history', $patient->surgical_history) }}</x-wire-textarea>
+    </div>
+
+    <div>
+        <x-wire-textarea label="Antecedentes familiares"
+            name="family_history">{{ old('family_history', $patient->family_history) }}</x-wire-textarea>
+    </div>
+</div>
+
 
                     </div>
 
+
+                    {{-- CONTENIDO DE  TAB3 :informacion general - --}}
+                    <div x-show="tab === 'informacion-general'" style="display:none;">
+                        <x-wire-native-select label="Tipo de sangre" class="mb-4" name="blood_type_id">
+                            <option value="">Seleccione el tipo de sangre: </option>
+                            @foreach ($bloodTypes as $blodType)
+                                <option value="{{ $blodType->id }}" @selected(old('blood_type_id', $patient->blood_type_id) == $blodType->id)>
+                                    {{ $blodType->name }}
+                                </option>
+                            @endforeach
+
+                        </x-wire-native-select>
+                        <x-wire-textarea label="Observaciones"
+                            name="observations">{{ old('observations', $patient->observations) }}
+
+                        </x-wire-textarea>
+                    </div>
+                    {{-- CONTENIDO DE  TAB4 :contacto de emergencia - --}}
+                    <div x-show="tab === 'contacto-emergencia'" style="display:none;">
+                    
+                            <div class="space-y-4">
+                                <x-wire-input label="Nombre del contacto " name="emergency_contact_name"
+                                    value="{{ old('emergency_contact_name', $patient->emergency_contact_name) }}" />
+
+                                <x-wire-phone label="Teléfono del contacto"
+                                    name="emergency_contact_phone" mask="(###) ###-####" placeholder="(999) 999-9999"
+                                    value="{{ old('emergency_contact_phone', $patient->emergency_contact_phone) }}" />
+
+                                <x-wire-input label="Relación con el contacto" name="emergency_contact_relationship" placeholder="Familiar,Amigo,etc"
+                                    value="{{ old('emergency_contact_relationship', $patient->emergency_contact_relationship) }}" />
+                            </div>
+
+                       
+                    </div>
                 </div>
-
-
             </div>
-            </div>
+
         </x-wire-card>
 
     </form>
