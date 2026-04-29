@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\BloodType;
 use App\Models\Patient;
-use Faker\Core\Blood;
+use Faker\Core\Blood;   
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
@@ -57,7 +57,7 @@ class PatientController extends Controller
     public function update(Request $request, Patient $patient)
     {
         $data = $request->validate([
-            'blood_type_id' => 'nullable|exists:blood_types,id',
+            "blood_type_id" => 'nullable|exists:blood_types,id',
             "allergies" => 'nullable|string|min:3|max:255',
             "chronic_conditions" => 'nullable|string|min:3|max:255',
             "surgical_history" => 'nullable|string|min:3|max:255',

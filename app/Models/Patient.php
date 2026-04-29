@@ -15,7 +15,9 @@ class Patient extends Model
         'observations',
         'emergency_contact_name',
         'emergency_contact_phone',
-        'emergency_contact_relationship'
+        'emergency_contact_relationship',
+        'blood_type_id',
+        
     ];
     //relacion inversa 
     public function user(){
