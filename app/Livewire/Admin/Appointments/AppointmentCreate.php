@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Appointments;
 use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Patient;
+use App\Services\AppointmentAutomationService;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -74,7 +75,7 @@ class AppointmentCreate extends Component
         $this->calculateDuration();
     }
 
-    public function save()
+    public function save(AppointmentAutomationService $automationService)
     {
         $this->validate([
             'patient_id' => 'required',
@@ -87,7 +88,7 @@ class AppointmentCreate extends Component
 
         $this->calculateDuration();
 
-        Appointment::create([
+        $appointment = Appointment::create([
             'patient_id' => $this->patient_id,
             'doctor_id' => $this->doctor_id,
             'date' => $this->date,
@@ -97,6 +98,9 @@ class AppointmentCreate extends Component
             'reason' => $this->reason,
             'status' => 1,
         ]);
+
+        // Trigger Automation (PDF, Email, WhatsApp)
+        $automationService->processNewAppointment($appointment);
 
         session()->flash('swal', [
             'icon' => 'success',
