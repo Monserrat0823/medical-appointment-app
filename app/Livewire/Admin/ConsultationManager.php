@@ -60,7 +60,12 @@ class ConsultationManager extends Component
             'status' => 2, // Completada
         ]);
 
-        session()->flash('success', 'Consulta guardada correctamente.');
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Consulta Guardada!',
+            'text' => 'La consulta y la receta se han registrado correctamente.',
+        ]);
+
         return redirect()->route('admin.appointments.index');
     }
 

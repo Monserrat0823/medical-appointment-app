@@ -98,7 +98,11 @@ class AppointmentCreate extends Component
             'status' => 1,
         ]);
 
-        session()->flash('success', '¡Cita registrada correctamente!');
+        session()->flash('swal', [
+            'icon' => 'success',
+            'title' => '¡Cita Registrada!',
+            'text' => 'La cita médica se ha guardado correctamente.',
+        ]);
 
         return redirect()->route('admin.appointments.index');
     }
