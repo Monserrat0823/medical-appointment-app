@@ -42,8 +42,7 @@
           </option>
 
           @foreach ($roles as $role)
-          <option value="{{$role->id}}" @selected(old('role_id',$user->roles->first()->id) == $role->id)>{{$role->name}}</option>
-              
+          <option value="{{$role->id}}" @selected(old('role_id', $user->roles->first()?->id) == $role->id)>{{$role->name}}</option>
           @endforeach
         </x-wire-native-select>
         <p class="text-sm text-gray-500">Define los permisos y acccesos del usuario.</p>

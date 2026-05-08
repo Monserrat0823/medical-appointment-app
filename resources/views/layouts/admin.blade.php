@@ -40,27 +40,33 @@
     @include('layouts.includes.admin.sidebar')
 
     <div class="p-4 sm:ml-64 mt-14">
-      <div class="mt-14  flex justify-between items-center w-full">
-
-           @include('layouts.includes.admin.breadcrumb')
-           @isset($action)
-            <div>
-              {{$action}}
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4">
+            <div class="flex justify-between items-center w-full">
+                @include('layouts.includes.admin.breadcrumb')
+                @isset($action)
+                    <div>
+                        {{$action}}
+                    </div>
+                @endisset
             </div>
-            @endisset
-      </div>
-       {{$slot}}
+        </div>
+        {{$slot}}
     </div>
 
     @stack('modals')
     {{--Mostrar sweet alert--}}
     
-    @if (@session('swal'))
+    @if (session('swal'))
     <script>
       Swal.fire(@json(session('swal')));
       </script>
-        
     @endif
+
+    <script>
+        window.addEventListener('swal', event => {
+            Swal.fire(event.detail[0]);
+        });
+    </script>
 
     @livewireScripts
 
